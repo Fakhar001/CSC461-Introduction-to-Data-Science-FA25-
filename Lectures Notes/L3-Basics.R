@@ -14,7 +14,7 @@
 # Integer Division
 10 %/% 3
 # Assigning Values to Variables
-x <- 10
+x = 10
 y <- 5
 z <- x + y
 z
@@ -87,7 +87,7 @@ mean(df$Age) # Mean of the 'Age' column
 sd(df$Score) # Standard deviation of the 'Score' column
 
 # Adding a new column
-df$Passed <- df$Score > 85
+df$Passed <- df$Score > 88
 print(df)
 # Subsetting data
 passed_students <- df[df$Passed == TRUE, ]
