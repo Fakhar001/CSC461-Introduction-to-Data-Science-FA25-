@@ -1,12 +1,12 @@
 # Data Cleaning and transformation in R
 # Load necessary libraries
-library(dplyr)
-library(tidyr)
-library(janitor)
-# Load the dataset
-# Create a dataset with some missing values
-# and inconsistent column names
-# Example datasets----
+
+library(dplyr) # for data manipulation
+library(tidyr) # for data tidying
+library(janitor) # for cleaning column names
+library(ggplot2) # for data visualization
+
+# Loading dataset----
 # Create a sample dataset
 data1 <- data.frame(
   id = c(1,3,4,5,6),
@@ -25,32 +25,13 @@ data2=data.frame(
   score_m=c(88, 92)
 )
 
-# EXAMPLE-2
-#()data1 <- data.frame(
-#id = 1:5
-#name = c("Alice", "Bob", "Charlie", "David", "Eve"),
-#age = c(25, NA, 35, 45, NA),
-#gender=c("Female","Male",NA, "Male","Female"),
-#score = c(90, 85, NA, 70, 95)
-#)
-
-#data2=data.frame(
-# id= c(2, 7),
-#name= c("Frank", "Grace"),
-#age=c(33,29),
-#gender=c("Male","Female"),
-#score=c(88, 92)
-#)
-
 
 # Step-1 Addressing Data Inconsistencies----
 # Inconsistent in order of ids
-# Combine the datasets
-data_raw <- bind_rows(data1, data2)
+# Combine the data sets
+data_raw <- bind_rows(data1, data2) # combine the data sets
 
-
-
-#data=arrange(data, id)
+data=arrange(data_raw, id) 
 
 # Data Standardization
 # Standardize column names
@@ -60,10 +41,30 @@ data2=clean_names(data2)
 data_sf <- bind_rows(data1, data2)
 
 #order the data_s
-data_s <- arrange(data_s, id)# Method_1
+data_sf <- arrange(data_sf, id)# Method_1
 
 data_sf = data_sf %>% # Method_2 dplyr package
   arrange(id)
+
+# manually rename the columns
+colnames(data_sf)[which(names(data_sf) == "score_m")] <- "score_m"
+# use rename function
+#rename(data_sf, score_m = score_m)
+
+
+# changing dataype
+data3=data.frame(
+  id= c(2, 7),
+  Name= c("Frank", "Grace"),
+  age=c(33L,29L),
+  Gender=c("Male","Female"),
+  score_m=c(88, 92)
+)
+
+data3$age <- as.numeric(data3$age)
+
+# check data type 
+str(data3)
 
 
 
@@ -74,6 +75,7 @@ missing_values
 # (a) remove missing value
 data_no_na <- na.omit(data_sf) 
 drop_na(data_sf)
+
 # (b) replace missing values with mean for numeric columns
 data_sf_wm <- data_sf %>%
   mutate(
@@ -82,6 +84,7 @@ data_sf_wm <- data_sf %>%
     gender=ifelse(is.na(gender),"Male",gender)
   )
 # count the values of na in data_sf_wm
+colSums(is.na(data_sf_wm))
 
 
 
@@ -136,8 +139,8 @@ data_sf=data_sf%>%
 aggregated_data <- data_sf_wm %>%
   group_by(age_group) %>%
   summarise(
-    average_score = mean(score_m, na.rm = TRUE),
-    count = n()
+  average_score = mean(score_m, na.rm = TRUE),
+  count = n()
   ) %>%
   ungroup()
 

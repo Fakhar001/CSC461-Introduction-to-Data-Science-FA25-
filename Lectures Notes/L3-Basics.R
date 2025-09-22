@@ -80,7 +80,7 @@ print(df)
 df$Name # Accessing the 'Name' column
 df[1, ] # Accessing the first row
 df[, "Score"] # Accessing the 'Score' column
-df[2, 3] # Accessing the element in the 2nd row and 3rd column
+ # Accessing the element in the 2nd row and 3rd column
 # Summary statistics
 summary(df)
 mean(df$Age) # Mean of the 'Age' column
@@ -89,19 +89,25 @@ sd(df$Score) # Standard deviation of the 'Score' column
 # Adding a new column
 df$Passed <- df$Score > 88
 print(df)
+
+
+
+#==========================================================#
 # Subsetting data
 passed_students <- df[df$Passed == TRUE, ]
 print(passed_students)
 # Sorting data
-sorted_df <- df[order(df$Score, decreasing = TRUE), ]
+sorted_df <- df[order(df$Score, decreasing = FALSE), ]
 print(sorted_df)
+
 # Merging data frames
 df2 <- data.frame(
   Name = c("David", "Eva"),
   Age = c(28, 22),
-  Score = c(92, 81)
+  Score = c(92, 81),
+  Passed= c(TRUE, FALSE)
 )
-merged_df <- rbind(df, df2)
+merged_df <- cbind(df, df2)
 print(merged_df)
 
 # Basic Functions in R----
