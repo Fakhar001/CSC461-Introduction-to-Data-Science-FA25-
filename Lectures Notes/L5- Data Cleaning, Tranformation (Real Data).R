@@ -95,3 +95,13 @@ flights_clean %>%
   geom_line(color = "blue") +
   geom_point(size = 2) +
   labs(title = "Average Arrival Delay by Month", x = "Month", y = "Avg Delay (minutes)")
+
+
+# arrival delays graph
+ggplot(flights_clean, aes(x = arr_delay)) +
+  geom_histogram(binwidth = 10, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Arrival Delays", x = "Arrival Delay (minutes)", y = "Frequency") +
+  xlim(-100, 300) 
+
+
+
