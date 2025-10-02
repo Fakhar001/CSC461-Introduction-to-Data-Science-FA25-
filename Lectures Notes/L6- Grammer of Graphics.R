@@ -132,4 +132,5 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 
 # 13. Saving a plot
 # ggsave("my_plot.png", plot = p, width = 8, height = 6, dpi = 300)
+# Uncomment the above line to save the last plot as a PNG file
 
