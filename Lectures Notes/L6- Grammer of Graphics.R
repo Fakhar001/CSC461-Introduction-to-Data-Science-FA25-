@@ -20,10 +20,10 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 # 4. Adding a statistical transformation (linear regression line)
 ggplot(mtcars, aes(x = wt, y = mpg)) + 
   geom_point() + 
-  geom_smooth(method = "loess")  # lm = linear model
+  geom_smooth(method = "lm")  # lm = linear model
 
 # 5. Customizing with a color scale (categorical)
-ggplot(mtcars, aes(x = wt, y = mpg, color = factor(gear))) + 
+ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) + 
   geom_point() + 
   scale_color_brewer(palette = "Set1")  # Brewer palette for colors
 
